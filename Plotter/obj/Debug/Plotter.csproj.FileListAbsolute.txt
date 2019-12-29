@@ -1,0 +1,9 @@
+D:\C# Projects\ArabTech Progs\Plotter\Plotter\bin\Debug\Plotter.exe.config
+D:\C# Projects\ArabTech Progs\Plotter\Plotter\bin\Debug\Plotter.exe
+D:\C# Projects\ArabTech Progs\Plotter\Plotter\bin\Debug\Plotter.pdb
+D:\C# Projects\ArabTech Progs\Plotter\Plotter\obj\Debug\Plotter.csprojAssemblyReference.cache
+D:\C# Projects\ArabTech Progs\Plotter\Plotter\obj\Debug\Plotter.Form1.resources
+D:\C# Projects\ArabTech Progs\Plotter\Plotter\obj\Debug\Plotter.Properties.Resources.resources
+D:\C# Projects\ArabTech Progs\Plotter\Plotter\obj\Debug\Plotter.csproj.GenerateResource.cache
+D:\C# Projects\ArabTech Progs\Plotter\Plotter\obj\Debug\Plotter.exe
+D:\C# Projects\ArabTech Progs\Plotter\Plotter\obj\Debug\Plotter.pdb
