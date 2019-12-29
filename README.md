@@ -6,6 +6,9 @@ A Simple C# WinForms Serial Data Plotter
 
 
 ### TODO:
-  - Add more than one variable to plot
+  - Add more details.
+  - Add more than one variable to plot (Using comma).
+  - Add user options for plotting.
+  - Add delimiters options.
   
 All Images Used are free on www.flaticon.com
