@@ -1,2 +1,3 @@
 # SerialPlotter
-A Simple C# WinForms Serial Data Plotter
+An Open-Source Simple C# WinForms Serial Data Plotter
+
