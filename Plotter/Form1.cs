@@ -26,7 +26,7 @@ namespace Plotter
                 comboPort.SelectedIndex = 0;
                 comboBaud.Enabled = true;
             }
-           
+
             // select 9600 as default
             comboBaud.SelectedIndex = 5;
 
@@ -44,11 +44,11 @@ namespace Plotter
             chart1.ChartAreas[0].CursorX.IsUserSelectionEnabled = true;
 
             chart1.Series.Clear();
-            chart1.Series.Add("X");
+            //chart1.Series.Add("X");
             //chart1.Series.Add("Y");
             //chart1.Series.Add("Z");
-            chart1.Series["X"].ChartType = SeriesChartType.Point;
-            //chart1.Series["Y"].ChartType = SeriesChartType.Point;
+            //chart1.Series["X"].ChartType = SeriesChartType.Line;
+            //chart1.Series["Y"].ChartType = SeriesChartType.Line;
             //chart1.Series["Z"].ChartType = SeriesChartType.Point;
         }
 
@@ -58,33 +58,7 @@ namespace Plotter
         private void timer1_Tick(object sender, EventArgs e)
         {
 
-            if (comboPort.Text.Length > 0)
-            {
-                if (!serialPort1.IsOpen)
-                    serialPort1.Open();
-                string read = serialPort1.ReadLine();
-                read = serialPort1.ReadLine().TrimEnd();
-                if (read.Split(',').Length > 0)
-                {
-                    try
-                    {
-                        float y0 = float.Parse(read.Split(',')[0]);
-                        
-                        chart1.Series[0].Points.AddXY(count, y0);
-                        count++;
 
-                        if (count >= 200)
-                        {
-                            chart1.ChartAreas[0].AxisX.ScaleView.Position = count-198;
-                        }
-
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-                }
-            }
         }
 
         private void refreshBtn_Click(object sender, EventArgs e)
@@ -104,9 +78,8 @@ namespace Plotter
         {
             if (comboPort.Text.Length > 0)
             {
-                if (timer1.Enabled == false)
+                if (!serialPort1.IsOpen)
                 {
-                    timer1.Enabled = true;
                     sendBtn.ForeColor = Color.Green;
                     serialPort1.PortName = comboPort.Text;
                     serialPort1.BaudRate = int.Parse(comboBaud.Text);
@@ -115,10 +88,17 @@ namespace Plotter
                 }
                 else
                 {
-                    timer1.Enabled = false;
-                    sendBtn.ForeColor = Color.Red;
-                    serialPort1.Close();
-                    sendBtn.Image = Image.FromFile("play24.png");
+                    try
+                    {
+                        sendBtn.ForeColor = Color.Red;
+                        serialPort1.Close();
+                        sendBtn.Image = Image.FromFile("play24.png");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+
                 }
             }
             else
@@ -130,6 +110,55 @@ namespace Plotter
         private void comboPort_SelectedIndexChanged(object sender, EventArgs e)
         {
             comboBaud.Enabled = true;
+        }
+
+        string serialDataIn;
+        private void serialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            serialDataIn = serialPort1.ReadLine();
+            Invoke(new EventHandler(ShowData));
+        }
+
+        private async void ShowData(object sender, EventArgs e)
+        {
+            if (comboPort.Text.Length > 0)
+            {
+                string read = serialDataIn.TrimEnd();
+
+                if (read.Split(',').Length > 0)
+                {
+
+                    for (int i = chart1.Series.Count; i < read.Split(',').Length; i++)
+                    {
+                        textBox1.AppendText(chart1.Series.Count.ToString() + Environment.NewLine);
+
+                        chart1.Series.Add(i.ToString());
+                        chart1.Series[i.ToString()].ChartType = SeriesChartType.Spline;
+                    }
+                    try
+                    {
+                        //float y0 = float.Parse(read.Split(',')[0]);
+                        string[] readings = read.Split(',');
+                        textBox1.Text = read + Environment.NewLine;
+                        for (int i = 0; i < readings.Length; i++)
+                        {
+                            textBox1.AppendText(readings[i] + Environment.NewLine);
+                            chart1.Series[i].Points.AddXY(count, float.Parse(readings[i]));
+                        }
+                        count++;
+
+                        if (count >= 200 && checkScroll.Checked)
+                        {
+                            chart1.ChartAreas[0].AxisX.ScaleView.Position = count - 198;
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+            }
         }
     }
 }

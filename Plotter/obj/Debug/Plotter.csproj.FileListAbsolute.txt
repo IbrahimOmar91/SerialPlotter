@@ -7,3 +7,4 @@ D:\C# Projects\ArabTech Progs\Plotter\Plotter\obj\Debug\Plotter.Properties.Resou
 D:\C# Projects\ArabTech Progs\Plotter\Plotter\obj\Debug\Plotter.csproj.GenerateResource.cache
 D:\C# Projects\ArabTech Progs\Plotter\Plotter\obj\Debug\Plotter.exe
 D:\C# Projects\ArabTech Progs\Plotter\Plotter\obj\Debug\Plotter.pdb
+D:\C# Projects\ArabTech Progs\Plotter\Plotter\obj\Debug\Plotter.csproj.CoreCompileInputs.cache
