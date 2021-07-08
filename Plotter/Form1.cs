@@ -32,13 +32,13 @@ namespace Plotter
 
             // setting the chart 
             chart1.ChartAreas[0].AxisX.ScaleView.Zoomable = true;
-            chart1.ChartAreas[0].AxisX.ScaleView.Zoom(2, 200);
+            chart1.ChartAreas[0].AxisX.ScaleView.Zoom(2, 100);
             chart1.ChartAreas[0].AxisX.ScrollBar.IsPositionedInside = false;
             chart1.ChartAreas[0].AxisX.ScrollBar.ButtonStyle = ScrollBarButtonStyles.SmallScroll;
             chart1.ChartAreas[0].AxisX.ScaleView.SizeType = DateTimeIntervalType.Number;
 
-            chart1.ChartAreas[0].AxisY.ScaleView.Zoomable = false;
-            chart1.ChartAreas[0].AxisY2.Enabled = AxisEnabled.True;
+            chart1.ChartAreas[0].AxisY.ScaleView.Zoomable = true;
+            //chart1.ChartAreas[0].AxisY2.Enabled = AxisEnabled.True;
 
             chart1.ChartAreas[0].CursorX.AutoScroll = true;
             chart1.ChartAreas[0].CursorX.IsUserSelectionEnabled = true;
@@ -53,13 +53,6 @@ namespace Plotter
         }
 
         ulong count = 0;
-
-        // timer function that gets activated every time interval (20 ms)
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-
-
-        }
 
         private void refreshBtn_Click(object sender, EventArgs e)
         {
@@ -88,17 +81,12 @@ namespace Plotter
                 }
                 else
                 {
-                    try
-                    {
-                        sendBtn.ForeColor = Color.Red;
-                        serialPort1.Close();
-                        sendBtn.Image = Image.FromFile("play24.png");
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-
+                    sendBtn.ForeColor = Color.Red;
+                    serialPort1.DiscardInBuffer();
+                    serialPort1.DiscardOutBuffer();
+                    serialPort1.Close();
+                    serialPort1.Dispose();
+                    sendBtn.Image = Image.FromFile("play24.png");
                 }
             }
             else
@@ -115,11 +103,18 @@ namespace Plotter
         string serialDataIn;
         private void serialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            serialDataIn = serialPort1.ReadLine();
-            Invoke(new EventHandler(ShowData));
+            try
+            { 
+                serialDataIn = serialPort1.ReadLine();
+                BeginInvoke(new EventHandler(ShowData));
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
         }
 
-        private async void ShowData(object sender, EventArgs e)
+        private void ShowData(object sender, EventArgs e)
         {
             if (comboPort.Text.Length > 0)
             {
@@ -137,7 +132,6 @@ namespace Plotter
                     }
                     try
                     {
-                        //float y0 = float.Parse(read.Split(',')[0]);
                         string[] readings = read.Split(',');
                         textBox1.Text = read + Environment.NewLine;
                         for (int i = 0; i < readings.Length; i++)
@@ -147,15 +141,15 @@ namespace Plotter
                         }
                         count++;
 
-                        if (count >= 200 && checkScroll.Checked)
+                        if (count >= 100 && checkScroll.Checked)
                         {
-                            chart1.ChartAreas[0].AxisX.ScaleView.Position = count - 198;
+                            chart1.ChartAreas[0].AxisX.ScaleView.Position = count - 98;
                         }
 
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message);
+                        return;
                     }
                 }
             }

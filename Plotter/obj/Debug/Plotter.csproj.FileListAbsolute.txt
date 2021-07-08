@@ -8,3 +8,13 @@ D:\C# Projects\ArabTech Progs\Plotter\Plotter\obj\Debug\Plotter.csproj.GenerateR
 D:\C# Projects\ArabTech Progs\Plotter\Plotter\obj\Debug\Plotter.exe
 D:\C# Projects\ArabTech Progs\Plotter\Plotter\obj\Debug\Plotter.pdb
 D:\C# Projects\ArabTech Progs\Plotter\Plotter\obj\Debug\Plotter.csproj.CoreCompileInputs.cache
+E:\Programming\C#\Projects\SerialPlotter\Plotter\bin\Debug\Plotter.exe.config
+E:\Programming\C#\Projects\SerialPlotter\Plotter\bin\Debug\Plotter.exe
+E:\Programming\C#\Projects\SerialPlotter\Plotter\bin\Debug\Plotter.pdb
+E:\Programming\C#\Projects\SerialPlotter\Plotter\obj\Debug\Plotter.csproj.AssemblyReference.cache
+E:\Programming\C#\Projects\SerialPlotter\Plotter\obj\Debug\Plotter.Form1.resources
+E:\Programming\C#\Projects\SerialPlotter\Plotter\obj\Debug\Plotter.Properties.Resources.resources
+E:\Programming\C#\Projects\SerialPlotter\Plotter\obj\Debug\Plotter.csproj.GenerateResource.cache
+E:\Programming\C#\Projects\SerialPlotter\Plotter\obj\Debug\Plotter.csproj.CoreCompileInputs.cache
+E:\Programming\C#\Projects\SerialPlotter\Plotter\obj\Debug\Plotter.exe
+E:\Programming\C#\Projects\SerialPlotter\Plotter\obj\Debug\Plotter.pdb
